@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.embeddedhtml": "html",
+        "compare": "cpp",
+        "type_traits": "cpp",
+        "math.h": "c",
+        "stdlib.h": "c",
+        "stdio.h": "c"
+    }
+}

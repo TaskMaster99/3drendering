@@ -3,16 +3,43 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+#include "../utils/utils.h"
 
 #define ROW_0_ DATA.FORMATED.ROW_0 
 #define ROW_1_ DATA.FORMATED.ROW_1
 #define ROW_2_ DATA.FORMATED.ROW_2 
 #define ROW_3_ DATA.FORMATED.ROW_3 
 
+#define CELL_11 DATA.RAW[0]
+#define CELL_12 DATA.RAW[1]
+#define CELL_13 DATA.RAW[2]
+#define CELL_14 DATA.RAW[3]
+
+#define CELL_21 DATA.RAW[4]
+#define CELL_22 DATA.RAW[5]
+#define CELL_23 DATA.RAW[6]
+#define CELL_24 DATA.RAW[7]
+
+#define CELL_31 DATA.RAW[8]
+#define CELL_32 DATA.RAW[9]
+#define CELL_33 DATA.RAW[10]
+#define CELL_34 DATA.RAW[11]
+
+#define CELL_41 DATA.RAW[12]
+#define CELL_42 DATA.RAW[13]
+#define CELL_43 DATA.RAW[14]
+#define CELL_44 DATA.RAW[15]
+
+
 #define RAW_ DATA.RAW
 
 /**
 * Vector with 4 floating compenants
+* @param X x coordinate
+* @param Y y coordinate
+* @param Z z coordinate
+* @param W w width
 */
 typedef struct VEC4
 {
@@ -26,6 +53,11 @@ typedef struct VEC4
 
 /**
  * MAT4x4, a 4 by 4 matrice
+ * @param ROW_0 row 0
+ * @param ROW_1 row 1
+ * @param ROW_2 row 2
+ * @param ROW_3 row 3
+ * @param RAW pointer to the matrix
  */
 typedef struct MAT4x4
 {
@@ -85,6 +117,12 @@ void MAT4X4_X_VEC4(MAT4x4* mat, VEC4* vec, VEC4* result);
  */
 void MAT4X4_X_MAT4x4(MAT4x4* mat0, MAT4x4* mat1, MAT4x4* result);
 /**
+ * determinant of a matrice 4x4
+ * @param mat matrice 4x4
+ * @return determinant
+ */
+float determinant(MAT4x4* mat);
+/**
  * inversion of a matrice 4x4
  * @param mat matrice 4x4
  * @param result inversed matrice 4x4 
@@ -114,8 +152,24 @@ void TRANSLATION(MAT4x4* mat, const float x, const float y, const float z, MAT4x
  */
 void TRANSLATION_(MAT4x4* mat, const VEC4 vec, MAT4x4* result);
 
-void PERSPECTIVE_PROJECTION_RIGHT_HAND();
-void PERSPECTIVE_PROJECTION_LEFT_HAND();
+/**
+ * matrice 4x4 perspective projection right handed
+ * @param fov field of view
+ * @param apsect_ratio aspect ration
+ * @param near Znear
+ * @param far Zfar
+ * @param result the matrice 4x4 perspective projection
+ */
+void PERSPECTIVE_PROJECTION_RIGHT_HANDED(const float fov, const float apsect_ratio, const float near, const float far, MAT4x4* result);
+/**
+ * matrice 4x4 perspective projection left handed
+ * @param fov field of view
+ * @param apsect_ratio aspect ratio
+ * @param near Znear
+ * @param far Zfar
+ * @param result the matrice 4x4 perspective projection
+ */
+void PERSPECTIVE_PROJECTION_LEFT_HANDED(const float fov, const float apsect_ratio, const float near, const float far, MAT4x4* result);
 
 void ORTHOGRAPHIC_PROJECTION();
 
