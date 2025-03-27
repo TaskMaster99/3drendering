@@ -179,3 +179,99 @@ void PERSPECTIVE_PROJECTION_LEFT_HANDED(const float fov, const float apsect_rati
     
     result->CELL_43 = -1.0f;
 }
+
+void EULER_ROTATION(VEC4* coord, MAT4x4* result)
+{
+    const float cos_psi = cos(coord->X);
+    const float sin_psi = sin(coord->X);
+
+    const float cos_theta = cos(coord->Y);
+    const float sin_theta = sin(coord->Y);
+
+    const float cos_phi = cos(coord->Z);
+    const float sin_phi = sin(coord->Z);
+
+    result->CELL_11 = cos_theta * cos_phi;
+    result->CELL_12 = sin_psi * sin_theta * cos_phi - cos_psi * sin_phi;
+    result->CELL_13 = cos_psi * sin_theta * cos_phi + sin_psi * sin_phi;
+
+    result->CELL_21 = cos_theta * sin_phi;
+    result->CELL_22 = sin_psi * sin_theta * sin_phi + sin_psi * cos_phi;
+    result->CELL_23 = cos_psi * sin_theta * sin_phi - sin_psi * cos_phi;
+
+    result->CELL_31 = -sin_theta;
+    result->CELL_32 = sin_psi * cos_theta;
+    result->CELL_33 = cos_psi * cos_theta;
+
+    result->CELL_44 = 1.0f;
+}
+
+void EULER_ROTATION_(const float x, const float y, const float z, MAT4x4* result)
+{
+    const float cos_psi = cos(x);
+    const float sin_psi = sin(x);
+
+    const float cos_theta = cos(y);
+    const float sin_theta = sin(y);
+
+    const float cos_phi = cos(z);
+    const float sin_phi = sin(z);
+
+    result->CELL_11 = cos_theta * cos_phi;
+    result->CELL_12 = sin_psi * sin_theta * cos_phi - cos_psi * sin_phi;
+    result->CELL_13 = cos_psi * sin_theta * cos_phi + sin_psi * sin_phi;
+
+    result->CELL_21 = cos_theta * sin_phi;
+    result->CELL_22 = sin_psi * sin_theta * sin_phi + sin_psi * cos_phi;
+    result->CELL_23 = cos_psi * sin_theta * sin_phi - sin_psi * cos_phi;
+
+    result->CELL_31 = -sin_theta;
+    result->CELL_32 = sin_psi * cos_theta;
+    result->CELL_33 = cos_psi * cos_theta;
+
+    result->CELL_44 = 1.0f;
+}
+
+void QUATERNION_ROTATION(VEC4* coord, MAT4x4* result)
+{
+    const float q0 = coord->X;
+    const float q1 = coord->Y;
+    const float q2 = coord->Z;
+    const float q3 = coord->W;
+
+    result->CELL_11 = 1.0f - (2.0f*q2*q2) - (2.0f*q3*q3);
+    result->CELL_12 = (2.0f*q1*q2) - (2.0f*q0*q3);
+    result->CELL_13 = (2.0f*q1*q3) + (2.0f*q0*q2);
+
+    result->CELL_21 = (2.0f*q1*q2) + (2.0f*q0*q3);
+    result->CELL_22 = 1.0f - (2.0f*q1*q1) - (2.0f*q3*q3);
+    result->CELL_23 = (2.0f*q2*q3) - (2.0f*q0*q1);
+
+    result->CELL_31 = (2.0f*q1*q3) - (2.0f*q0*q2);
+    result->CELL_32 = (2.0f*q2*q3) + (2.0f*q0*q1);
+    result->CELL_33 = 1.0f - (2.0f*q1*q1) - (2.0f*q2*q2);
+
+    result->CELL_44 = 1.0f;
+}
+
+void QUATERNION_ROTATION_(const float x, const float y, const float z, const float w, MAT4x4* result)
+{
+    const float q0 = x;
+    const float q1 = y;
+    const float q2 = z;
+    const float q3 = w;
+
+    result->CELL_11 = 1.0f - (2.0f*q2*q2) - (2.0f*q3*q3);
+    result->CELL_12 = (2.0f*q1*q2) - (2.0f*q0*q3);
+    result->CELL_13 = (2.0f*q1*q3) + (2.0f*q0*q2);
+
+    result->CELL_21 = (2.0f*q1*q2) + (2.0f*q0*q3);
+    result->CELL_22 = 1.0f - (2.0f*q1*q1) - (2.0f*q3*q3);
+    result->CELL_23 = (2.0f*q2*q3) - (2.0f*q0*q1);
+
+    result->CELL_31 = (2.0f*q1*q3) - (2.0f*q0*q2);
+    result->CELL_32 = (2.0f*q2*q3) + (2.0f*q0*q1);
+    result->CELL_33 = 1.0f - (2.0f*q1*q1) - (2.0f*q2*q2);
+
+    result->CELL_44 = 1.0f;
+}

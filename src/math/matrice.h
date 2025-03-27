@@ -171,10 +171,48 @@ void PERSPECTIVE_PROJECTION_RIGHT_HANDED(const float fov, const float apsect_rat
  */
 void PERSPECTIVE_PROJECTION_LEFT_HANDED(const float fov, const float apsect_ratio, const float near, const float far, MAT4x4* result);
 
-void ORTHOGRAPHIC_PROJECTION();
+/**
+ * matrice 4x4 orthographic projection
+ * @param near Znear
+ * @param far Zfar
+ * @param right Xright
+ * @param left Xleft
+ * @param top Ytop
+ * @param bottom Ybottom
+ * @param result the matrice 4x4 orthographic projection
+ */
+void ORTHOGRAPHIC_PROJECTION(const float near, const float far, const float right, const float left, const float top, const float bottom, MAT4x4* result);
 
-void EULER_ROTATION();
-void QUATERNION_ROTATION();
+/**
+ * matrice 4x4 euler rotation
+ * @param coord vector axes rotation
+ * @param result the matrice 4x4 eurler rotation
+ */
+void EULER_ROTATION(VEC4* coord, MAT4x4* result);
+/**
+ * matrice 4x4 euler rotation
+ * @param radian angle in radian
+ * @param x x axes rotation
+ * @param y y axes rotation
+ * @param z z axes rotation
+ * @param result the matrice 4x4 eurler rotation
+ */
+void EULER_ROTATION_(const float x, const float y, const float z, MAT4x4* result);
+/**
+ * matrice 4x4 quaternion rotation
+ * @param coord rotation axes
+ * @param result the matrice 4x4 quaternion rotation
+ */
+void QUATERNION_ROTATION(VEC4* coord, MAT4x4* result);
+/**
+ * matrice 4x4 quaternion rotation
+ * @param x x axes rotation
+ * @param y y axes rotation
+ * @param z z axes rotation
+ * @param w w axes rotation
+ * @param result the matrice 4x4 quaternion rotation
+ */
+void QUATERNION_ROTATION_(const float x, const float y, const float z, const float w, MAT4x4* result);
 
 #endif
 
