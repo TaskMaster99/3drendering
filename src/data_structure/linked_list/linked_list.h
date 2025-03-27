@@ -4,25 +4,42 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * node
+ * @param value value of the node
+ * @param next pointer to the next node
+ */
 typedef struct node
 {
     char* value;
     struct node* next;
 } __attribute__((aligned(64))) node;
 
-
+/**
+ * create a node
+ * @param element element of the node created
+ * @param src the empty node
+ */
 void create_node(char* element, node* src)
 {
     src->value = element;
     src->next = NULL;
 }
-
+/**
+ * add a node to a node
+ * @param element element of the node created
+ * @param src source node
+ */
 void add_element(node* src, char* element)
 {
     src->next = (node*)malloc(sizeof(node));
     create_node(element, src->next);
 }
-
+/**
+ * remove a node to a node
+ * @param element element of the node to delete
+ * @param src source node
+ */
 void remove_element(node* src, char* element_delete)
 {
     node* tmp = NULL;
@@ -49,7 +66,12 @@ void remove_element(node* src, char* element_delete)
         src = src->next;
     }
 }
-
+/**
+ * insert a node after it
+ * @param element_at where to insert an element
+ * @param element_insert element to insert
+ * @param src source node
+ */
 void insert_element(node* src, char* element_at,char* element_insert)
 {
     node* tmp = NULL;
@@ -68,6 +90,10 @@ void insert_element(node* src, char* element_at,char* element_insert)
     src = bg;
 }
 
+/**
+ * display linked list
+ * @param src source node
+ */
 void display_list(node* src)
 {
     node* bg = src;
@@ -78,7 +104,10 @@ void display_list(node* src)
     src = bg;
     printf("\n");
 }
-
+/**
+ * free the memory
+ * @param src source node
+ */
 void free_list(node* src)
 {
     node* tmp = src->next;
