@@ -180,6 +180,20 @@ void PERSPECTIVE_PROJECTION_LEFT_HANDED(const float fov, const float apsect_rati
     result->CELL_43 = -1.0f;
 }
 
+void ORTHOGRAPHIC_PROJECTION(const float near, const float far, const float right, const float left, const float top, const float bottom, MAT4x4* result)
+{
+    result->CELL_11 = 2.0f/(right - left);
+    result->CELL_14 = -(right + left)/(right - left);
+
+    result->CELL_22 = 2.0f/(top - bottom);
+    result->CELL_24 = -(top + bottom)/(top - bottom);
+
+    result->CELL_33 = -2.0f/(far - near);
+    result->CELL_34 = -(far + near)/(far - near);
+
+    result->CELL_44 = 1.0f;
+}
+
 void EULER_ROTATION(VEC4* coord, MAT4x4* result)
 {
     const float cos_psi = cos(coord->X);
@@ -272,6 +286,23 @@ void QUATERNION_ROTATION_(const float x, const float y, const float z, const flo
     result->CELL_31 = (2.0f*q1*q3) - (2.0f*q0*q2);
     result->CELL_32 = (2.0f*q2*q3) + (2.0f*q0*q1);
     result->CELL_33 = 1.0f - (2.0f*q1*q1) - (2.0f*q2*q2);
+
+    result->CELL_44 = 1.0f;
+}
+
+void VIEW(const VEC4* u, const VEC4* v, const VEC4* n, MAT4x4* result)
+{
+    result->CELL_11 = u->X;
+    result->CELL_12 = u->Y;
+    result->CELL_13 = u->Z;
+
+    result->CELL_21 = v->X;
+    result->CELL_22 = v->Y;
+    result->CELL_23 = v->Z;
+
+    result->CELL_31 = n->X;
+    result->CELL_32 = n->Y;
+    result->CELL_33 = n->Z;
 
     result->CELL_44 = 1.0f;
 }

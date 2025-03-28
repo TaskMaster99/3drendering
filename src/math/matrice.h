@@ -213,6 +213,14 @@ void QUATERNION_ROTATION(VEC4* coord, MAT4x4* result);
  * @param result the matrice 4x4 quaternion rotation
  */
 void QUATERNION_ROTATION_(const float x, const float y, const float z, const float w, MAT4x4* result);
+/**
+ * matrice 4x4 view
+ * @param u right x axes rotation
+ * @param v up y axes rotation
+ * @param n forward z axes rotation
+ * @param result the matrice 4x4 view
+ */
+void VIEW(const VEC4* u, const VEC4* v, const VEC4* n, MAT4x4* result);
 
 #endif
 
