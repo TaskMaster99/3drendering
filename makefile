@@ -4,13 +4,15 @@ OUT_T = out/main.o
 OUT_M = out/matrice.o
 OUT_R = out/render.o
 OUT_S = out/shader.o
+OUT_MS = out/meshe.o
 
-OUT = ${OUT_T} ${OUT_M} ${OUT_R} ${OUT_S}
+OUT = ${OUT_T} ${OUT_M} ${OUT_R} ${OUT_S} ${OUT_MS} 
 
 SRC_T = src/test/main.c 
 SRC_M = src/math/matrice.c
 SRC_R = src/render/render.c
 SRC_S = src/render/shader/shader.c
+SRC_MS = src/render/meshe/meshe.c
 
 test : ${OUT}
 	gcc -o test ${OUT} ${LIB}
@@ -27,6 +29,10 @@ ${OUT_R} : ${SRC_R}
 
 ${OUT_S} : ${SRC_S}
 	gcc ${PARAM} -o $@  -c $^ ${LIB}
+	
+${OUT_MS} : ${SRC_MS}
+	gcc ${PARAM} -o $@  -c $^ ${LIB}
+
 
 run:
 	./test

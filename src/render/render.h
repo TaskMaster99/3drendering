@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
+#include "meshe/meshe.h"
 #include "../utils/utils.h"
 #include "shader/shader.h"
 
@@ -25,18 +26,19 @@
  * @param nb_shaders number of shaders running
  * @param shaders pointer to shaders
  */
-typedef struct Render_context
+typedef struct RenderContext
 {
     int width;
     int height;
+    float aspect_ratio;
     char* window_name;
     SDL_Window* window;
     SDL_GLContext* openGLContext;
-    SDL_Event* event;
+    SDL_Event event;
     unsigned int nb_shaders;
     Shader* shaders;
 
-}Render_context;
+}RenderContext;
 
 /**
  * initialize SDL2 and loading OpenGl functions
@@ -45,17 +47,17 @@ typedef struct Render_context
  * @param height window height
  * @param window_name window name
  */
-void init_opengl_context(Render_context* render_context, const int width, const int height, char* window_name);
+void InitOpenglContext(RenderContext* render_context, const int width, const int height, char* window_name);
 /**
  * rendering loop
  * @param render_context rendering context
  */
-void loop(Render_context* render_context);
+void Loop(RenderContext* render_context);
 /**
  * clean all
  * @param render_context rendering context
  */
-void clean(Render_context* render_context);
+void Clean(RenderContext* render_context);
 
 
 #endif

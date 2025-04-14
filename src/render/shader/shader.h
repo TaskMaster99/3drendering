@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include<GL/glew.h>
 #include"../../utils/utils.h"
+#include "../../math/matrice.h"
 
 #define SHADER_CODE_PATHING(result,code_name) snprintf(result,1024,"render/shader/GLSL/%s", code_name)
 #define VERTEX GL_VERTEX_SHADER
@@ -18,7 +19,7 @@
 typedef struct Shader_Code
 {
     char* name;
-    FILE* shader_file;
+    char* shader_file;
 }Shader_Code;
 
 
@@ -46,17 +47,34 @@ typedef struct Shader
  * @param shader_name name
  * @param shader pointer to a shader
  */
-void Get_Shader_Error(const char * shader_name,const unsigned int* shader);
+void GetShaderError(const char * shader_name,const unsigned int* shader);
 /**
  * check program error
  * @param program pointer to a program
  * @param status program status
  */
-void Get_Porgram_Error(const unsigned int* program, const int status);
+void GetPorgramError(const unsigned int* program, const int status);
 /**
  * create shader program
  * @param shader shader
  */
-void init_shader(Shader* Shader);
+void InitShader(Shader* Shader);
+/**
+ * user shader program
+ * @param shader shader
+ */
+void UseShaderProgram(Shader* shader);
+/**
+ * send matrix to uniform variable
+ * @param shader pointer to a shader
+ * @param name name of the uniform variable
+ * @param mat pointer to the matrix
+ */
+void SetMatrix4x4Uniform(Shader* shader,char* name, MAT4x4* mat);
+/**
+ * clear shader program
+ * @param shader pointer to a shader
+ */
+void ClearShader(Shader* shader);
 
 #endif

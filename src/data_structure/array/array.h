@@ -11,14 +11,16 @@
  * @param capacity the capacity of the array which is always superior to the size of the array
  * @param data the pointer to the generic data
  */
-typedef struct D_Array
-{
-    unsigned int size_type;
-    unsigned int size;
-    unsigned int capacity;
 
-    void** data;
-}D_Array;
+#define Vector(__TYPE__) \
+struct D_Array_##__TYPE__\
+{\
+    __TYPE__*    full_data;\
+    unsigned int size_type;\
+    unsigned int size;\
+    unsigned int capacity;\
+}\
+
 
 /**
  * reserve a chunck of data
@@ -26,53 +28,56 @@ typedef struct D_Array
  * @param nb_element the number of element you want allocate
  * @param size_type the size of types you wants for your dynamic array
  */
-void reserve(D_Array* vec, unsigned int nb_element, unsigned int size_type)
-{   
-    vec->size = (nb_element ^ 0x0);
-    vec->capacity = vec->size + 5;
-    vec->size_type = size_type;
-    vec->data = malloc(vec->capacity * sizeof(void*));
-}
+#define VecReserve(vec,nb_element,type)\
+{   \
+    vec.size = nb_element;\
+    vec.capacity = vec.size + 5;\
+    vec.size_type = sizeof(type);\
+    vec.full_data = malloc(vec.capacity * vec.size_type);\
+}\
+
+#define VecInsert(vec, elements)\
+{\
+    for(unsigned int i = 0; i < vec.size; ++i)\
+    {\
+        vec.full_data[i] = elements[i];\
+    }\
+}\
 
 /**
  * push an element at the end of the array
  * @param vec the dynamic array
  * @param element the element to be pushed
  */
-void push_back(D_Array* vec, void* element)
-{
-
-    if((vec->size + 1) > vec->capacity)
-    {
-        vec->size += 1;
-        vec->capacity = vec->size + 5;
-        vec->data = realloc(vec->data, vec->capacity * sizeof(void*));
-    }
-    else
-    {
-        vec->size += 1;
-    }
-
-    vec->data[vec->size - 1] = element;
-}
+#define VecPush_back(vec, element)\
+{\
+    if(vec.size >= vec.capacity)\
+    {\
+        vec.capacity = vec.size + 5;\
+        vec.full_data = realloc(vec.full_data, vec.capacity * vec.size_type);\
+    }\
+    vec.full_data[vec.size] = element;\
+    vec.size += 1;\
+}\
 
 /**
  * get the pointer to the array
  * @param vec the dynamic array
  * @return the pointer to the array
  */
-void* data(D_Array* vec)
-{
-    return vec->data;
-}
+#define VecData(vec, relevent_data)\
+{\
+    memcpy(relevent_data, vec.full_data, vec.size);\
+    \
+}\
 
 /**
  * free the memory taken by the array
  * @param vec the dynamic array
  */
-void clean(D_Array* vec)
-{
-    free(vec->data);
-}
+#define VecClean(vec)\
+{\
+    free(vec.full_data);\
+}\
 
 #endif

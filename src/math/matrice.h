@@ -34,6 +34,13 @@
 
 #define RAW_ DATA.RAW
 
+#define G_PI 3.14159265359
+#define G_PI_2 1.57079632679
+#define G_PI_3 1.0471975512
+#define G_PI_5 0.62831853071
+#define G_PI_6 0.52359877559
+
+
 /**
 * Vector with 4 floating compenants
 * @param X x coordinate
@@ -143,14 +150,14 @@ void MAT4X4_TRANSPOSE(MAT4x4* mat, MAT4x4* result);
  * @param z z-axis  
  * @param result translated matrice 4x4
  */
-void TRANSLATION(MAT4x4* mat, const float x, const float y, const float z, MAT4x4* result);
+void TRANSLATION(const float x, const float y, const float z, MAT4x4* result);
 /**
  * translation of a matrice 4x4
  * @param mat matrice 4x4
  * @param vec vector translation
  * @param result translated matrice 4x4
  */
-void TRANSLATION_(MAT4x4* mat, const VEC4 vec, MAT4x4* result);
+void TRANSLATION_(const VEC4 vec, MAT4x4* result);
 
 /**
  * matrice 4x4 perspective projection right handed
@@ -203,7 +210,7 @@ void EULER_ROTATION_(const float x, const float y, const float z, MAT4x4* result
  * @param coord rotation axes
  * @param result the matrice 4x4 quaternion rotation
  */
-void QUATERNION_ROTATION(VEC4* coord, MAT4x4* result);
+void QUATERNION_ROTATION(const float radian, VEC4* coord, MAT4x4* result);
 /**
  * matrice 4x4 quaternion rotation
  * @param x x axes rotation
@@ -212,7 +219,7 @@ void QUATERNION_ROTATION(VEC4* coord, MAT4x4* result);
  * @param w w axes rotation
  * @param result the matrice 4x4 quaternion rotation
  */
-void QUATERNION_ROTATION_(const float x, const float y, const float z, const float w, MAT4x4* result);
+void QUATERNION_ROTATION_(const float radian, const float x, const float y, const float z, const float w, MAT4x4* result);
 /**
  * matrice 4x4 view
  * @param u right x axes rotation
