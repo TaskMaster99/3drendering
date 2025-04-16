@@ -37,8 +37,8 @@ void InitShader(Shader* Shader)
     Shader->vertex_shader_code.name = "square.vs";
     Shader->fragment_shader_code.name = "square.fs";
 
-    char* vertex_code_buffer =read_file(vertex_path_buffer);
-    char* fragment_code_buffer =read_file(fragment_path_buffer);  
+    char* vertex_code_buffer = ReadFile(vertex_path_buffer);
+    char* fragment_code_buffer = ReadFile(fragment_path_buffer);  
 
     unsigned int vertex = glCreateShader(VERTEX);
     unsigned int fragment = glCreateShader(FRAGMENT);
@@ -47,10 +47,10 @@ void InitShader(Shader* Shader)
     glShaderSource(fragment, 1, (const char **)&fragment_code_buffer, NULL);
 
     glCompileShader(vertex);
-    Get_Shader_Error(Shader->vertex_shader_code.name, &vertex);
+    GetShaderError(Shader->vertex_shader_code.name, &vertex);
 
     glCompileShader(fragment);
-    Get_Shader_Error(Shader->fragment_shader_code.name, &fragment);
+    GetShaderError(Shader->fragment_shader_code.name, &fragment);
 
     Shader->program = glCreateProgram();
     
@@ -58,10 +58,10 @@ void InitShader(Shader* Shader)
     glAttachShader(Shader->program, fragment);
 
     glLinkProgram(Shader->program);
-    Get_Porgram_Error(&Shader->program, GL_LINK_STATUS);
+    GetPorgramError(&Shader->program, GL_LINK_STATUS);
 
     glValidateProgram(Shader->program);
-    Get_Porgram_Error(&Shader->program, GL_VALIDATE_STATUS);
+    GetPorgramError(&Shader->program, GL_VALIDATE_STATUS);
 
     glAttachShader(0, vertex);
     glAttachShader(0, fragment);

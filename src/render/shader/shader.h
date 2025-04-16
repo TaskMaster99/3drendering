@@ -1,8 +1,6 @@
-#ifndef SHADER_HPP
-#define SHADER_HPP
+#ifndef SHADER_H
+#define SHADER_H
 
-#include<stdlib.h>
-#include<stdio.h>
 #include<GL/glew.h>
 #include"../../utils/utils.h"
 #include "../../math/matrice.h"

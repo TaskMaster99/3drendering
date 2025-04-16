@@ -272,7 +272,7 @@ void QUATERNION_ROTATION(const float radian, VEC4* coord, MAT4x4* result)
 
 }
 
-void QUATERNION_ROTATION_(const float radian, const float x, const float y, const float z, const float w, MAT4x4* result)
+void QUATERNION_ROTATION_(const float radian, const float x, const float y, const float z, MAT4x4* result)
 {
     const float q0 = cos(radian/2.0f);
     const float q1 = x * sin(radian/2.0f);

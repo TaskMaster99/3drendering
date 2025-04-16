@@ -48,14 +48,16 @@ void Loop(RenderContext* render_context)
 {
     SDL_bool isQuitting = 0;
 
-    Meshe square;
+    Meshe cube;
+    Meshe arrow;
 
-    GenerateSquare(&square);
+    GenerateCube(&cube);
+    GenerateArrow(&arrow);
 
-    Shader cube_;
-    InitShader(&cube_);
+    Shader shader;
+    InitShader(&shader);
 
-    UseShaderProgram(&cube_);
+    UseShaderProgram(&shader);
 
     MAT4x4 model;
     MAT4x4 rot;
@@ -89,23 +91,26 @@ void Loop(RenderContext* render_context)
         PERSPECTIVE_PROJECTION_RIGHT_HANDED(G_PI_2, render_context->aspect_ratio, 0.1f, 100.f, &projection);
         INIT_MAT4X4(&rot);
         //EULER_ROTATION_(0.0f, G_PI_6 * i, 0.0f, &rot);
-        QUATERNION_ROTATION_(G_PI_6 * i, 0.0f, 1.0f, 0.0f, 0.0f, &rot);
+        QUATERNION_ROTATION_(G_PI_6 * i, 1.0f, 0.0f, 0.0f, &rot);
+        //QUATERNION_ROTATION_(G_PI_6 * i, 0.0f, 1.0f, 0.0f, &rot);
+        //QUATERNION_ROTATION_(G_PI_6 * i, 0.0f, 0.0f, 1.0f, &rot);
 
-        SetMatrix4x4Uniform(&cube_, "projectionM", &projection);
-        SetMatrix4x4Uniform(&cube_, "modelM", &model);
-        SetMatrix4x4Uniform(&cube_, "rotM", &rot);
+        SetMatrix4x4Uniform(&shader, "projectionM", &projection);
+        SetMatrix4x4Uniform(&shader, "modelM", &model);
+        SetMatrix4x4Uniform(&shader, "rotM", &rot);
 
 
-        DrawMeshe(&square);
+        DrawMeshe(&cube);
+        DrawArrowMeshe(&arrow);
 
         i += 0.05f;
         SDL_GL_SwapWindow(render_context->window);
     }
 
-    ClearShader(&cube_);
+    ClearShader(&shader);
 }
 
-void clean(RenderContext* render_context)
+void CleanRender(RenderContext* render_context)
 {
     SDL_GL_DeleteContext(render_context->openGLContext);
     SDL_DestroyWindow(render_context->window);

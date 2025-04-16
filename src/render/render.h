@@ -8,12 +8,7 @@
 #include "../utils/utils.h"
 #include "shader/shader.h"
 
-#define GL_COLOR_RED 1.0f,0.0f,0.0f
-#define GL_COLOR_GREEN 0.0f,1.0f,.0f
-#define GL_COLOR_BLUE 0.0f,0.0f,1.0f
-#define GL_COLOR_GRAY 0.5f,0.5f,0.5f
-#define GL_COLOR_WHITE 1.0f,1.0f,1.0f
-#define GL_COLOR_BLACK 0.0f,0.0f,0.0f
+
 
 /**
  * Context rendering
@@ -57,7 +52,7 @@ void Loop(RenderContext* render_context);
  * clean all
  * @param render_context rendering context
  */
-void Clean(RenderContext* render_context);
+void CleanRender(RenderContext* render_context);
 
 
 #endif

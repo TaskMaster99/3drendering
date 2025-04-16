@@ -1,5 +1,5 @@
-#ifndef MESHE_HPP
-#define MESHE_HPP
+#ifndef MESHE_H
+#define MESHE_H
 
 #include <GL/glew.h>
 #include "../../data_structure/array/array.h"
@@ -21,7 +21,9 @@ typedef struct Meshe
 
 void GenerateCube(Meshe* cube);
 void GenerateSquare(Meshe* square);
+void GenerateArrow(Meshe* arrow);
 
 void DrawMeshe(Meshe* meshe);
+void DrawArrowMeshe(Meshe* meshe);
 
 #endif

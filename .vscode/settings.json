@@ -23,6 +23,8 @@
         "functional": "cpp",
         "tuple": "cpp",
         "utility": "cpp",
-        "cmath": "c"
+        "cmath": "c",
+        "array.h": "c",
+        "random": "c"
     }
 }

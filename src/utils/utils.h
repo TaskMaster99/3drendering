@@ -1,9 +1,21 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include<stdlib.h>
+#include<stdio.h>
+
 #define LOGGING(...) printf(__VA_ARGS__)
 #define ASSERT_LOGGING(cond,...) if(cond){printf(__VA_ARGS__);}
 #define ERROR_LOGGING(...) fprintf(stderr,__VA_ARGS__)
+
+#define GL_COLOR_RED 1.0f,0.0f,0.0f
+#define GL_COLOR_GREEN 0.0f,1.0f,.0f
+#define GL_COLOR_BLUE 0.0f,0.0f,1.0f
+#define GL_COLOR_GRAY 0.5f,0.5f,0.5f
+#define GL_COLOR_WHITE 1.0f,1.0f,1.0f
+#define GL_COLOR_BLACK 0.0f,0.0f,0.0f
+
+#ifdef SHADER_H
 
 char* ReadFile(const char* file_path)
 {
@@ -24,7 +36,6 @@ char* ReadFile(const char* file_path)
     {
         result[i] = (char)c;
         ++i;
-
     }
 
     result[i] = '\0';
@@ -33,5 +44,7 @@ char* ReadFile(const char* file_path)
 
     return result;
 }
+
+#endif
 
 #endif
