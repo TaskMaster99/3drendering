@@ -1,5 +1,22 @@
 #include "matrice.h"
 
+float imod(const float a,const float b)
+{
+    return a/b > 0 ? a - ((int)(a/b)*b) : a - ((int)((a/b) - 0.9999999999999999)*b);
+}
+
+float radian(const float val)
+{
+    return (val > 360) ? imod(val,360):val * G_PI / 180;
+}
+
+
+int is_approx_equal(const float a,const float b)
+{
+    const float epsilon = 1.666e-10;
+    return fabs(a - b) < epsilon;
+}
+
 
  void INIT_MAT4X4(MAT4x4* mat)
 {
@@ -22,6 +39,34 @@ void DISPLAY_VEC4(VEC4* vec)
 {
     LOGGING("[%f]\n[%f]\n[%f]\n[%f]\n", vec->X, vec->Y, vec->Z, vec->W);
     LOGGING("\n");
+}
+
+void NORMALIZE(VEC4* vec, VEC4* res)
+{
+    const float length = sqrtf((vec->X * vec->X) + (vec->Y * vec->Y) + (vec->Z * vec->Z));
+
+    *res = (VEC4){vec->X / length, vec->Y / length, vec->Z / length, vec->W};
+}
+
+void COEFF_M_VEC4(const float coeff, VEC4* vec, VEC4* res)
+{
+    *res = (VEC4){vec->X * coeff, vec->Y * coeff, vec->Z * coeff, vec->W};
+}
+
+void ADD_VEC4(VEC4* vec0, VEC4* vec1, VEC4* res)
+{
+    *res = (VEC4){vec0->X + vec1->X, vec0->Y + vec1->Y, vec0->Z + vec1->Z, vec0->W};
+}
+
+void MIN_VEC4(VEC4* vec0, VEC4* vec1, VEC4* res)
+{
+    *res = (VEC4){vec0->X - vec1->X, vec0->Y - vec1->Y, vec0->Z - vec1->Z, vec0->W};
+
+}
+
+void CROSS_PRODUCT(VEC4* vec0, VEC4* vec1, VEC4* result)
+{
+    *result = (VEC4){vec0->Y * vec1->Z - vec0->Z * vec1->Y, vec0->Z * vec1->X - vec0->X * vec1->Z, vec0->X * vec1->Y - vec0->Y * vec1->X, 0.0f};
 }
 
 void SCALAR_PRODUCT(VEC4* vec0, VEC4* vec1, float* result)
@@ -308,5 +353,8 @@ void VIEW(const VEC4* u, const VEC4* v, const VEC4* n, MAT4x4* result)
     result->CELL_32 = n->Y;
     result->CELL_33 = n->Z;
 
+    result->CELL_41 = 0.0f;
+    result->CELL_42 = 0.0f;
+    result->CELL_43 = 0.0f;
     result->CELL_44 = 1.0f;
 }

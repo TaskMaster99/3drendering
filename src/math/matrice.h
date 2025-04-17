@@ -84,6 +84,14 @@ typedef struct MAT4x4
 
 } MAT4x4;
 
+float imod(const float a,const float b);
+
+float radian(const float val);
+
+int is_approx_equal(const float a,const float b);
+
+
+
 /**
  * Initialiaze the matrice 4x4
  * @param mat matrice 4x4
@@ -100,6 +108,17 @@ void DISPLAY_MAT4X4(MAT4x4* mat);
  * @param vec vectro 4
  */
 void DISPLAY_VEC4(VEC4* vec);
+
+void NORMALIZE(VEC4* vec, VEC4* res);
+
+void COEFF_M_VEC4(const float coeff, VEC4* vec, VEC4* res);
+
+void ADD_VEC4(VEC4* vec0, VEC4* vec1, VEC4* res);
+
+void MIN_VEC4(VEC4* vec0, VEC4* vec1, VEC4* res);
+
+void CROSS_PRODUCT(VEC4* vec0, VEC4* vec1, VEC4* result);
+
 
 /**
  * Scalar product between two vector 4

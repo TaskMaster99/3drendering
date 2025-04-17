@@ -67,6 +67,9 @@ void Loop(RenderContext* render_context)
     INIT_MAT4X4(&model);
     INIT_MAT4X4(&rot);
 
+    Camera user;
+    InitCamera(&user, render_context->width, render_context->height);
+
 
     TRANSLATION(0.0f, 0.0f, -1.0f, &model);
 
@@ -83,12 +86,17 @@ void Loop(RenderContext* render_context)
             }
         }
 
+        ProcessKeyBoard(&user, 0.05f);
+        ProcessMouse(&user);
+
+        DISPLAY_MAT4X4(&user.view);
+
         glClearColor(GL_COLOR_GRAY,0.0f);
         glEnable(GL_DEPTH_TEST);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        PERSPECTIVE_PROJECTION_RIGHT_HANDED(G_PI_2, render_context->aspect_ratio, 0.1f, 100.f, &projection);
+        PERSPECTIVE_PROJECTION_RIGHT_HANDED(G_PI_3, render_context->aspect_ratio, 0.1f, 100.f, &projection);
         INIT_MAT4X4(&rot);
         //EULER_ROTATION_(0.0f, G_PI_6 * i, 0.0f, &rot);
         QUATERNION_ROTATION_(G_PI_6 * i, 1.0f, 0.0f, 0.0f, &rot);
@@ -96,7 +104,7 @@ void Loop(RenderContext* render_context)
         //QUATERNION_ROTATION_(G_PI_6 * i, 0.0f, 0.0f, 1.0f, &rot);
 
         SetMatrix4x4Uniform(&shader, "projectionM", &projection);
-        SetMatrix4x4Uniform(&shader, "modelM", &model);
+        SetMatrix4x4Uniform(&shader, "modelM", &user.view);
         SetMatrix4x4Uniform(&shader, "rotM", &rot);
 
 

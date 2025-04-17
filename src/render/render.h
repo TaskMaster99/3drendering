@@ -7,8 +7,7 @@
 #include "meshe/meshe.h"
 #include "../utils/utils.h"
 #include "shader/shader.h"
-
-
+#include "../io/camera.h"
 
 /**
  * Context rendering
