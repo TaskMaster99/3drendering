@@ -56,7 +56,8 @@ void GetPorgramError(const unsigned int* program, const int status);
  * create shader program
  * @param shader shader
  */
-void InitShader(Shader* Shader);
+void InitShader(Shader* Shader, char* path0, char* path1);
+
 /**
  * user shader program
  * @param shader shader
@@ -69,6 +70,10 @@ void UseShaderProgram(Shader* shader);
  * @param mat pointer to the matrix
  */
 void SetMatrix4x4Uniform(Shader* shader,char* name, MAT4x4* mat);
+void SetVec3Uniform(Shader* shader,char* name, float r, float g, float b);
+void SetFloatUniform(Shader* shader,char* name, const float value);
+void SetTexture(Shader* shader, char* name, GLuint texture);
+
 /**
  * clear shader program
  * @param shader pointer to a shader

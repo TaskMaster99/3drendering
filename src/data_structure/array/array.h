@@ -12,15 +12,21 @@
  * @param data the pointer to the generic data
  */
 
-#define Vector(__TYPE__) \
-struct D_Array_##__TYPE__\
+typedef struct D_Array_float
 {\
-    __TYPE__*    full_data;\
+    float*    full_data;\
     unsigned int size_type;\
     unsigned int size;\
     unsigned int capacity;\
-}\
+}D_Array_float;\
 
+typedef struct D_Array_uint32_t
+{\
+    uint32_t*    full_data;\
+    unsigned int size_type;\
+    unsigned int size;\
+    unsigned int capacity;\
+}D_Array_uint32_t;\
 
 /**
  * reserve a chunck of data

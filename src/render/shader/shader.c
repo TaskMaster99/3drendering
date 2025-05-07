@@ -28,17 +28,14 @@ void GetPorgramError(const unsigned int* program, const int status)
     }
 }
 
-
-void InitShader(Shader* Shader)
+void InitShader(Shader* Shader, char* path0, char* path1)
 {
-    char* vertex_path_buffer = "src/render/shader/GLSL/square.vs";
-    char* fragment_path_buffer = "src/render/shader/GLSL/square.fs";
 
     Shader->vertex_shader_code.name = "square.vs";
     Shader->fragment_shader_code.name = "square.fs";
 
-    char* vertex_code_buffer = ReadFile(vertex_path_buffer);
-    char* fragment_code_buffer = ReadFile(fragment_path_buffer);  
+    char* vertex_code_buffer = ReadFile(path0);
+    char* fragment_code_buffer = ReadFile(path1);  
 
     unsigned int vertex = glCreateShader(VERTEX);
     unsigned int fragment = glCreateShader(FRAGMENT);
@@ -75,6 +72,24 @@ void SetMatrix4x4Uniform(Shader* shader,char* name, MAT4x4* mat)
 {
     unsigned int transformLoc = glGetUniformLocation(shader->program,name);
     glUniformMatrix4fv(transformLoc, 1, GL_TRUE, mat->RAW_);
+}
+
+void SetVec3Uniform(Shader* shader,char* name, float r, float g, float b)
+{
+    unsigned int transformLoc = glGetUniformLocation(shader->program,name);
+    glUniform3f(transformLoc, r, g, b);
+}
+
+void SetFloatUniform(Shader* shader,char* name, const float value)
+{
+    unsigned int transformLoc = glGetUniformLocation(shader->program,name);
+    glUniform1f(transformLoc, value);
+}
+
+void SetTexture(Shader* shader, char* name, GLuint texture)
+{
+    unsigned int transformLoc = glGetUniformLocation(shader->program,name);
+    glUniform1i(transformLoc, texture);
 }
 
 void UseShaderProgram(Shader* shader)

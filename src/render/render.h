@@ -1,7 +1,6 @@
 #ifndef RENDER_H
 #define RENDER_H
 
-#include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include "meshe/meshe.h"
@@ -46,7 +45,13 @@ void InitOpenglContext(RenderContext* render_context, const int width, const int
  * rendering loop
  * @param render_context rendering context
  */
-void Loop(RenderContext* render_context);
+void LoopSquare(RenderContext* render_context);
+/**
+ * rendering loop
+ * @param render_context rendering context
+ */
+void LoopSquareTexture(RenderContext* render_context);
+void LoopSquareAmbient(RenderContext* render_context);
 /**
  * clean all
  * @param render_context rendering context

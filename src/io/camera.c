@@ -12,7 +12,7 @@ void InitCamera(Camera* camera, const float width, const float height)
     COEFF_M_VEC4(-1.0f, &camera->position, &tmp);
     NORMALIZE(&tmp, &camera->front);
 
-    CROSS_PRODUCT(&camera->front, &camera->up, &tmp);
+    CROSS_PRODUCT(&camera->up, &camera->front, &tmp);
     NORMALIZE(&tmp, &camera->right);
 
 
@@ -134,15 +134,10 @@ void ProcessMouse(Camera* camera)
     
                 camera->mouse_y =  90.0f < camera->mouse_y ?  90.0f : camera->mouse_y;
                 camera->mouse_y = -90.0f > camera->mouse_y ? -90.0f : camera->mouse_y;
-    
-                printf("x = %f .\n", camera->mouse_x/camera->width);
-                printf("y = %f .\n", camera->mouse_y/camera->height);
-
 
                 VEC4 x = (VEC4){1.0f,0.0f,0.0f,0.0f};
                 VEC4 x_ = (VEC4){-1.0f,0.0f,0.0f,0.0f};
 
-                VEC4 y = (VEC4){0.0f,1.0f,0.0f,0.0f};
                 VEC4 y_ = (VEC4){0.0f,-1.0f,0.0f,0.0f};
 
                 VEC4 z = (VEC4){0.0f,0.0f,1.0f,0.0f};
@@ -159,16 +154,10 @@ void ProcessMouse(Camera* camera)
                 VEC4 res;
                 
                 MAT4X4_X_VEC4(&tmp3, &z, &res);
-                DISPLAY_VEC4(&res);
-
-                DISPLAY_VEC4(&camera->front);
-
-
-                 
                 NORMALIZE(&res, &camera->front);
 
                 VEC4 tmp4;
-                CROSS_PRODUCT(&camera->front, &x, &tmp4);
+                CROSS_PRODUCT(&x, &camera->front, &tmp4);
                 NORMALIZE(&tmp4, &camera->up);
 
                 VEC4 tmp5;
